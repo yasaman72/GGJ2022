@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Debug_Switch",
+                    "type": "Button",
+                    "id": "71eadf14-a949-4ab9-8c40-e0fe84193ede",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -68,8 +76,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ae8440f5-fbdc-4c3e-ade6-d1345eb866ab",
-                    "path": "<Keyboard>/f",
+                    "id": "13a11229-980c-4b71-9e48-31d2f5f7fe0f",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -79,8 +87,8 @@
                 },
                 {
                     "name": "",
-                    "id": "b86e7c66-8cf8-4c99-bca7-039928a99f3f",
-                    "path": "<Keyboard>/enter",
+                    "id": "3cf96047-6811-487b-90bf-1d54229ed2f3",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -98,28 +106,6 @@
                     "action": "Move_P2",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "78f16212-78cc-4740-b66b-610a8508a54e",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Move_P2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "bc440cae-70d2-43f5-b10f-711f45acf045",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Move_P2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -177,28 +163,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "ca88ac17-05d5-440a-8278-58c274471c4c",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move_P1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "da9b5e63-db08-474a-af46-a01ab04a5f74",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move_P1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "3c6fcdf0-d465-47a1-9616-11fd4542ca60",
                     "path": "<Keyboard>/leftArrow",
@@ -223,11 +187,22 @@
                 {
                     "name": "",
                     "id": "4ed6f6a0-524e-49fe-91f7-39ba7457db05",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Fire_P2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03f6899a-92ae-4588-95e3-66addaf779f6",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Debug_Switch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
