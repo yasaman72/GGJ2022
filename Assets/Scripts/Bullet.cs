@@ -7,9 +7,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 1000;
     [SerializeField] private float life = 5;
 
-    private void OnEnable()
+    public void Fire(Vector2 direction)
     {
-        rb2D.AddForce(Vector2.right * speed);
+        rb2D.AddForce(direction * speed);
         StartCoroutine(EndLife());
     }
 

@@ -29,11 +29,16 @@ public class MultiplayerMenuController : MonoBehaviour
 
     public void OnShowMultiplayerPanel()
     {
-        hostCode.text = "---------";
+        hostCode.text = "---.---.-.--";
         codeInputField.text = string.Empty;
     }
 
     public void OnHideMultiplayerPanel()
     {
+    }
+
+    public void OnCopyClicked()
+    {
+        GUIUtility.systemCopyBuffer = hostCode.text;
     }
 }
