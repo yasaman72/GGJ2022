@@ -2649,6 +2649,8 @@ MonoBehaviour:
   downground: {fileID: 447345944}
   player1: {fileID: 407019927}
   player2: {fileID: 479108615}
+  minSwitchInterval: 3
+  maxSitchInterval: 5
 --- !u!1 &1093713191
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         mainMenu.Hide();
+        GameManager.instance.StartGameplay();
     }
 
     public void OpenMainMenu()

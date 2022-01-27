@@ -30,19 +30,26 @@ public class PlayableCharacter : MonoBehaviour
     private bool moving;
     private bool isJumping;
     private bool isFiring;
-    private Vector2 lookDirection;
+    private Vector2 lookDirection = -Vector2.right;
+    private Vector3 intialScale;
+    private bool canMove = true;
 
     private void OnEnable()
     {
+        intialScale = rigidBody.transform.localScale;
+
         if (startFlipped)
+        {
             rigidBody.gravityScale *= -1;
+        }
+
 
         StartCoroutine(SetRotation());
     }
 
     bool IsGrounded()
     {
-        return col.IsTouching(startFlipped ? GameManager.instance.upGround : GameManager.instance.downground);
+        return col.IsTouching(Mathf.Sign(rigidBody.gravityScale) <= 0 ? GameManager.instance.upGround : GameManager.instance.downground);
     }
 
 
@@ -98,36 +105,42 @@ public class PlayableCharacter : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        Debug.LogError("here again");
-        if (context.phase == InputActionPhase.Started)
+        moving = false;
+        moveInput.x = context.ReadValue<Vector2>().x;
+
+        Debug.Log(moveInput);
+
+        if (moveInput == Vector2.zero)
         {
             moving = false;
 
-            moveInput.x = context.ReadValue<Vector2>().x;
+            StartCoroutine(StopSlowly());
+        }
+        else
+        {
+            StartCoroutine(MoveProcess());
+
             if (moveInput.x > 0)
             {
-                visuals.transform.eulerAngles = new Vector2(0, 0);
+                rigidBody.transform.localScale = new Vector3(intialScale.x * Mathf.Sign(rigidBody.gravityScale),
+                                                             intialScale.y,
+                                                             intialScale.z);
                 lookDirection = Vector2.right;
             }
             else
             {
-                visuals.transform.eulerAngles = new Vector2(0, 180);
+                rigidBody.transform.localScale = new Vector3(-intialScale.x * Mathf.Sign(rigidBody.gravityScale),
+                                             intialScale.y,
+                                             intialScale.z);
                 lookDirection = -Vector2.right;
             }
-            Debug.Log(moveInput);
-            StartCoroutine(Move());
-        }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            moving = false;
-            StartCoroutine(StopSlowly());
         }
     }
 
-    IEnumerator Move()
+    IEnumerator MoveProcess()
     {
         moving = true;
-        while (moving)
+        while (true)
         {
             rigidBody.velocity = new Vector2((moveInput * moveSpeed * Time.fixedDeltaTime).x, rigidBody.velocity.y);
             yield return new WaitForFixedUpdate();
@@ -136,12 +149,13 @@ public class PlayableCharacter : MonoBehaviour
 
     IEnumerator StopSlowly()
     {
-        while (rigidBody.velocity != Vector2.zero)
+        while (rigidBody.velocity != Vector2.zero && canMove)
         {
             rigidBody.velocity = Vector3.Lerp(rigidBody.velocity, Vector2.zero, slowDownSpeed * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
-
         }
+
+        rigidBody.velocity = Vector2.zero;
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -171,8 +185,12 @@ public class PlayableCharacter : MonoBehaviour
 
     public void SwitchGravity()
     {
+        canMove = false;
+        rigidBody.velocity = Vector2.zero;
         rigidBody.gravityScale *= -1;
+        lookDirection = -lookDirection;
         StartCoroutine(SetRotation());
+        StartCoroutine(WaitUntilGrounded());
     }
 
     private IEnumerator SetRotation()
@@ -202,5 +220,14 @@ public class PlayableCharacter : MonoBehaviour
             }
         }
 
+    }
+
+    private IEnumerator WaitUntilGrounded()
+    {
+        while (!IsGrounded())
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        canMove = true;
     }
 }
