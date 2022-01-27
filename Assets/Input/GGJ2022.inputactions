@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "P2Jump",
+                    "name": "Jump_P2",
                     "type": "Button",
                     "id": "6e6d9e0d-c83a-4e03-aae4-e059812e9a5f",
                     "expectedControlType": "Button",
@@ -61,7 +61,7 @@
                     "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XR",
+                    "groups": "Keyboard&Mouse",
                     "action": "Fire_P1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -73,7 +73,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "P2Jump",
+                    "action": "Jump_P2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -182,7 +182,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Move_P1",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -193,7 +193,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Move_P1",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -204,7 +204,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Move_P1",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -215,7 +215,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Move_P1",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -226,7 +226,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XR",
+                    "groups": "Keyboard&Mouse",
                     "action": "Fire_P2",
                     "isComposite": false,
                     "isPartOfComposite": false
