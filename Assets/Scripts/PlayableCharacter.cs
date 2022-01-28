@@ -24,17 +24,22 @@ public class PlayableCharacter : MonoBehaviour
     [Space]
     [SerializeField] private bool automaticGun = true;
     [SerializeField] private float fireInterval = 0.5f;
+    [Space]
+    [SerializeField] private int maxCollectableSeed = 3;
+    [SerializeField] private GameObject[] seedIndicators;
 
     private float jumpForce = 3;
     private float moveInput;
     private bool moving;
     private bool isJumping;
     private bool isFiring;
-    private Vector2 lookDirection = -Vector2.right;
+    private Vector2 lookDirection = Vector2.right;
     private Vector3 intialScale;
     private bool canMove = true;
     private float moveLeftLastValue;
     private float moveRightLastValue;
+    private int currentCollectedSeed;
+
 
     private void OnEnable()
     {
@@ -43,8 +48,11 @@ public class PlayableCharacter : MonoBehaviour
         if (startFlipped)
         {
             rigidBody.gravityScale *= -1;
+            lookDirection = -Vector2.right;
         }
 
+        currentCollectedSeed = 0;
+        UpdateSeedsIndicator();
 
         StartCoroutine(SetRotation());
     }
@@ -105,6 +113,7 @@ public class PlayableCharacter : MonoBehaviour
         }
     }
 
+    #region Movement
     public void MoveRight(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -204,7 +213,9 @@ public class PlayableCharacter : MonoBehaviour
 
         rigidBody.velocity = Vector2.zero;
     }
+    #endregion
 
+    #region Fire
     public void Fire(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -224,12 +235,14 @@ public class PlayableCharacter : MonoBehaviour
         while (isFiring)
         {
             GameObject newBullet = Instantiate(bullet, bulletSpawnPoint.transform.position, Quaternion.identity, null);
-            newBullet.GetComponent<Bullet>().Fire(lookDirection);
+            newBullet.GetComponent<Bullet>().Fire(lookDirection, this);
             if (!automaticGun) isFiring = false;
             yield return new WaitForSeconds(fireInterval);
         }
     }
+    #endregion
 
+    #region Gravity
     public void SwitchGravity()
     {
         canMove = false;
@@ -276,5 +289,21 @@ public class PlayableCharacter : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         canMove = true;
+    }
+    #endregion
+
+    public void OnCollectedEnemySeed()
+    {
+        Debug.Log("collected");
+        currentCollectedSeed = Mathf.Min(currentCollectedSeed + 1, maxCollectableSeed);
+        UpdateSeedsIndicator();
+    }
+
+    private void UpdateSeedsIndicator()
+    {
+        for (int i = 0; i < seedIndicators.Length; i++)
+        {
+            seedIndicators[i].gameObject.SetActive(i < currentCollectedSeed);
+        }
     }
 }
