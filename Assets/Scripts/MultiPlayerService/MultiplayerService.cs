@@ -57,6 +57,8 @@ namespace Multiplayer
 
                            Opponent.Start(handler);
 
+                           Opponent.Ready();
+
                        }
                        catch (Exception)
                        { }

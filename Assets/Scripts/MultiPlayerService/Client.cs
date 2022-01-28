@@ -60,6 +60,11 @@ namespace Multiplayer
             Send(new SwitchGravityMsg());
         }
 
+        public void Ready()
+        {
+            Send(new ReadyMsg());
+        }
+
         private void Send<T>(T gameMsg) where T : GameMsg
         {
             Send(JsonConvert.SerializeObject(new BaseMessage(gameMsg) { From = Role }));

@@ -24,7 +24,11 @@ public class MultiplayerMenuController : MonoBehaviour
         Debug.Log($"{obj.GetType()} received...");
 
 
-        if (obj is MoveMsg move)
+        if (obj is ReadyMsg)
+        {
+            // TODO: ready to start...
+        }
+        else if (obj is MoveMsg move)
         {
 
         }

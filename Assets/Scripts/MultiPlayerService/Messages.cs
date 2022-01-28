@@ -6,6 +6,11 @@ namespace Multiplayer
 
     }
 
+    public class ReadyMsg : GameMsg
+    {
+
+    }
+
     public class MoveMsg : GameMsg
     {
         public float X { get; set; }
