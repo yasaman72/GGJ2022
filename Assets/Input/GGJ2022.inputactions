@@ -6,10 +6,34 @@
             "id": "29974322-b6c5-4a17-b784-f2ce01ba3de7",
             "actions": [
                 {
-                    "name": "Move_P1",
-                    "type": "Value",
+                    "name": "Move_Left_P1",
+                    "type": "Button",
                     "id": "b16662f9-4d6a-4899-94a3-09f3c6d81f4d",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Move_Left_P2",
+                    "type": "Button",
+                    "id": "a7a1b1a7-2d32-44e8-8657-7af046639e5c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Move_Right_P1",
+                    "type": "Button",
+                    "id": "711505dc-ed14-4da3-8084-d520d974737c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Move_Right_P2",
+                    "type": "Button",
+                    "id": "0ab03144-e21c-414b-afd9-ca0938d27f65",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
@@ -26,14 +50,6 @@
                     "type": "Button",
                     "id": "8fb2aa0d-092a-470b-8231-7acbbfb26eb6",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Move_P2",
-                    "type": "Value",
-                    "id": "4d19a7f8-44a0-4172-9872-cd39f93040d8",
-                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
@@ -97,94 +113,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WASD",
-                    "id": "ecab7385-14ae-4716-b122-d9da0b026521",
-                    "path": "Dpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move_P2",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "left",
-                    "id": "cbd349fd-3019-4322-8674-80b735af22d1",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Move_P2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "3ac3bfa6-0bbc-44ba-a205-33461d7027b8",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Move_P2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "54527220-058b-4a7b-bf73-dbd46485bf9e",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move_P2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move_P1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "ArrowKys",
-                    "id": "255a8028-0d36-4d27-ace3-8d4668071dcd",
-                    "path": "2DVector(mode=2)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move_P1",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "left",
-                    "id": "3c6fcdf0-d465-47a1-9616-11fd4542ca60",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move_P1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "32bc2847-a878-415d-8a0e-dc4c60079122",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move_P1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "4ed6f6a0-524e-49fe-91f7-39ba7457db05",
                     "path": "<Keyboard>/f",
@@ -203,6 +131,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Debug_Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f20ac179-a6f1-4365-959a-52aa06862730",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move_Left_P1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fa3de89-3bdc-4db0-a070-04aab1802cbf",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move_Right_P1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fca9f008-8b04-435f-be3d-8fa96c2f7aa5",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move_Left_P2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84d6e64e-b739-42d1-b1d6-dcd2fc329492",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move_Right_P2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -26,13 +26,15 @@ public class PlayableCharacter : MonoBehaviour
     [SerializeField] private float fireInterval = 0.5f;
 
     private float jumpForce = 3;
-    private Vector2 moveInput;
+    private float moveInput;
     private bool moving;
     private bool isJumping;
     private bool isFiring;
     private Vector2 lookDirection = -Vector2.right;
     private Vector3 intialScale;
     private bool canMove = true;
+    private float moveLeftLastValue;
+    private float moveRightLastValue;
 
     private void OnEnable()
     {
@@ -103,14 +105,55 @@ public class PlayableCharacter : MonoBehaviour
         }
     }
 
-    public void Move(InputAction.CallbackContext context)
+    public void MoveRight(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            moveRightLastValue = 1;
+            Move(false, true);
+        }
+        else if (context.canceled)
+        {
+            moveRightLastValue = 0;
+
+            if (moveLeftLastValue != 1)
+            {
+                Move(true);
+            }
+            else
+            {
+                Move(false, false);
+            }
+        }
+    }
+
+    public void MoveLeft(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            moveLeftLastValue = 1;
+            Move(false, false);
+        }
+        else if (context.canceled)
+        {
+            moveLeftLastValue = 0;
+
+            if (moveRightLastValue != 1)
+            {
+                Move(true);
+            }
+            else
+            {
+                Move(false, true);
+            }
+        }
+    }
+
+    public void Move(bool stopMoving = false, bool movingRight = true)
     {
         moving = false;
-        moveInput.x = context.ReadValue<Vector2>().x;
 
-        Debug.Log(moveInput);
-
-        if (moveInput == Vector2.zero)
+        if (stopMoving)
         {
             moving = false;
 
@@ -118,14 +161,14 @@ public class PlayableCharacter : MonoBehaviour
         }
         else
         {
-            StartCoroutine(MoveProcess());
 
-            if (moveInput.x > 0)
+            if (movingRight)
             {
                 rigidBody.transform.localScale = new Vector3(intialScale.x * Mathf.Sign(rigidBody.gravityScale),
                                                              intialScale.y,
                                                              intialScale.z);
                 lookDirection = Vector2.right;
+                moveInput = 1;
             }
             else
             {
@@ -133,16 +176,20 @@ public class PlayableCharacter : MonoBehaviour
                                              intialScale.y,
                                              intialScale.z);
                 lookDirection = -Vector2.right;
+
+                moveInput = -1;
             }
+
+            StartCoroutine(MoveProcess());
         }
     }
 
     IEnumerator MoveProcess()
     {
         moving = true;
-        while (true)
+        while (moving)
         {
-            rigidBody.velocity = new Vector2((moveInput * moveSpeed * Time.fixedDeltaTime).x, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2((moveInput * moveSpeed * Time.fixedDeltaTime), rigidBody.velocity.y);
             yield return new WaitForFixedUpdate();
         }
     }
