@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private MenuPanel mainMenu; 
     [SerializeField] private MenuPanel multiplayerMenu; 
     [SerializeField] private MenuPanel controlsMenu;
+    [SerializeField] private MenuPanel inGame;
+    [SerializeField] private Button startBtn;
 
     MenuPanel currentPanel;
 
@@ -16,11 +19,12 @@ public class MenuManager : MonoBehaviour
         OpenMainMenu();
         multiplayerMenu.Hide();
         controlsMenu.Hide();
+        inGame.Hide();
     }
     public void StartGame()
     {
-        mainMenu.Hide();
         GameManager.instance.StartGameplay();
+        OpenAPanel(inGame);
     }
 
     public void OpenMainMenu()

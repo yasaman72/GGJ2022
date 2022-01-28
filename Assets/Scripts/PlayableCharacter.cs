@@ -67,6 +67,7 @@ public class PlayableCharacter : MonoBehaviour
         return Mathf.Sign(rigidBody.gravityScale) <= 0 ? true : false;
     }
 
+    #region Jump
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -116,6 +117,7 @@ public class PlayableCharacter : MonoBehaviour
             }
         }
     }
+    #endregion
 
     #region Movement
     public void MoveRight(InputAction.CallbackContext context)
@@ -296,9 +298,22 @@ public class PlayableCharacter : MonoBehaviour
     }
     #endregion
 
+    #region Plant
+    public void Plant(InputAction.CallbackContext context)
+    {
+        if (!IsGrounded()) return;
+        if (currentCollectedSeed > 0)
+        {
+            currentCollectedSeed--;
+            UpdateSeedsIndicator();
+
+            SeedsManager.instance.SeedPlant(rigidBody.position, !IsFlipped());
+        }
+    }
+    #endregion
+
     public void OnCollectedEnemySeed()
     {
-        Debug.Log("collected");
         currentCollectedSeed = Mathf.Min(currentCollectedSeed + 1, maxCollectableSeed);
         UpdateSeedsIndicator();
     }

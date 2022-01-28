@@ -6,6 +6,7 @@ public class EnemySeedCollectable : MonoBehaviour
 {
     [SerializeField] private int hitToCollect;
     private int currentHit = 5;
+    [HideInInspector] public bool isOnBottom;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -17,9 +18,9 @@ public class EnemySeedCollectable : MonoBehaviour
                 PlayableCharacter bulletOwner = other.GetComponent<Bullet>().owner;
                 bulletOwner.OnCollectedEnemySeed();
                 Destroy(gameObject);
-                SeedsManager.instance.SpawnSeed(bulletOwner.IsFlipped()); ;
+                SeedsManager.instance.SpawnSeed(isOnBottom); ;
             }
-            Destroy(other);
+            Destroy(other.gameObject);
         }
     }
 }

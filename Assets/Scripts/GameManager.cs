@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     {
         InGameplay = true;
         StartCoroutine(SwitchGravityTimer());
+        SeedsManager.instance.SpawnSeedSourceOnStart();
     }
 
     private IEnumerator SwitchGravityTimer()
@@ -51,5 +53,10 @@ public class GameManager : MonoBehaviour
         {
             OnGravitySwitched.Invoke();
         }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
