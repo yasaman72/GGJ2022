@@ -74,6 +74,9 @@ public class SeedsManager : MonoBehaviour
         {
             spawnPos = new Vector2(playerPosition.x, topPlantSpace.bounds.center.y);
         }
-        Instantiate(plantedSeed, spawnPos, Quaternion.identity, null);
+        Instantiate(plantedSeed, 
+            spawnPos,
+            OnBottom ?  Quaternion.identity: Quaternion.Euler(0, 0, 180),
+            null);
     }
 }

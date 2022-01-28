@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -9,7 +8,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private MenuPanel multiplayerMenu; 
     [SerializeField] private MenuPanel controlsMenu;
     [SerializeField] private MenuPanel inGame;
-    [SerializeField] private Button startBtn;
 
     MenuPanel currentPanel;
 

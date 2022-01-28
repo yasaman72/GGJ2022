@@ -8,8 +8,23 @@ namespace Multiplayer
 
     public class MoveMsg : GameMsg
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public float X { get; set; }
+    }
+
+    public class StopMoveMsg : GameMsg
+    {
+    }
+
+    public class FireMsg : GameMsg
+    {
+    }
+
+    public class JumpMsg : GameMsg
+    {
+    }
+
+    public class PlantMsg : GameMsg
+    {
     }
 
     public class StartMsg : GameMsg
@@ -17,7 +32,7 @@ namespace Multiplayer
 
     }
 
-    public class SwitchMsg : GameMsg
+    public class SwitchGravityMsg : GameMsg
     {
 
     }

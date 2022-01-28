@@ -8,9 +8,16 @@ using System.Net;
 
 public class MultiplayerMenuController : MonoBehaviour
 {
+    public static MultiplayerMenuController instance;
+
     [SerializeField] private TMP_InputField codeInputField;
     [SerializeField] private TextMeshProUGUI hostCode;
     public event Action<GameMsg> OnMessageReceived;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Opponent_OnGameEventReceived(GameMsg obj)
     {
@@ -25,13 +32,25 @@ public class MultiplayerMenuController : MonoBehaviour
         {
 
         }
-        else if (obj is SwitchMsg)
+        else if (obj is SwitchGravityMsg)
+        {
+
+        }
+        else if (obj is FireMsg)
+        {
+
+        }
+        else if (obj is PlantMsg)
+        {
+
+        }
+        else if (obj is JumpMsg)
         {
 
         }
     }
 
-    MultiplayerService Multiplayer = null;
+    public MultiplayerService Multiplayer = null;
 
     public void OnJoinBtnClicked()
     {

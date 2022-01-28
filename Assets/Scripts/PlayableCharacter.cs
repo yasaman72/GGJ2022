@@ -75,7 +75,7 @@ public class PlayableCharacter : MonoBehaviour
             if (IsGrounded())
             {
                 jumpForce = CalculateJumpForce(Physics2D.gravity.magnitude, jumpHeight);
-
+                MultiplayerMenuController.instance.Multiplayer.Opponent.Jump();
                 rigidBody.AddForce(new Vector2(0, Mathf.Sign(rigidBody.gravityScale) * jumpForce), ForceMode2D.Impulse);
                 StartCoroutine(JumpingProcess());
             }
@@ -103,9 +103,9 @@ public class PlayableCharacter : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
             passedTime += Time.deltaTime;
-            Debug.Log("before added velocity " + rigidBody.velocity);
-            rigidBody.AddForce(new Vector2(0, Mathf.Sign(rigidBody.gravityScale) * gradualJumpForce * Time.fixedDeltaTime), ForceMode2D.Force);
-            Debug.Log("added velocity " + rigidBody.velocity);
+            //Debug.Log("before added velocity " + rigidBody.velocity);
+            //rigidBody.AddForce(new Vector2(0, Mathf.Sign(rigidBody.gravityScale) * gradualJumpForce * Time.fixedDeltaTime), ForceMode2D.Force);
+            //Debug.Log("added velocity " + rigidBody.velocity);
             if (passedTime >= maxAirTime ||
                 Mathf.Sign(rigidBody.velocity.y) != Mathf.Sign(rigidBody.gravityScale) ||
                 rigidBody.velocity.y >= maxJumpVelocity)
@@ -176,7 +176,6 @@ public class PlayableCharacter : MonoBehaviour
         }
         else
         {
-
             if (movingRight)
             {
                 rigidBody.transform.localScale = new Vector3(intialScale.x * Mathf.Sign(rigidBody.gravityScale),
@@ -205,6 +204,7 @@ public class PlayableCharacter : MonoBehaviour
         while (moving)
         {
             rigidBody.velocity = new Vector2((moveInput * moveSpeed * Time.fixedDeltaTime), rigidBody.velocity.y);
+            MultiplayerMenuController.instance.Multiplayer.Opponent.Move(moveInput);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -214,6 +214,7 @@ public class PlayableCharacter : MonoBehaviour
         while (rigidBody.velocity != Vector2.zero && canMove)
         {
             rigidBody.velocity = Vector3.Lerp(rigidBody.velocity, Vector2.zero, slowDownSpeed * Time.fixedDeltaTime);
+            MultiplayerMenuController.instance.Multiplayer.Opponent.StopMove();
             yield return new WaitForFixedUpdate();
         }
 
@@ -240,6 +241,8 @@ public class PlayableCharacter : MonoBehaviour
 
         while (isFiring)
         {
+            MultiplayerMenuController.instance.Multiplayer.Opponent.Fire();
+
             GameObject newBullet = Instantiate(bullet, bulletSpawnPoint.transform.position, Quaternion.identity, null);
             newBullet.GetComponent<Bullet>().Fire(lookDirection, this);
             if (!automaticGun) isFiring = false;
@@ -304,6 +307,8 @@ public class PlayableCharacter : MonoBehaviour
         if (!IsGrounded()) return;
         if (currentCollectedSeed > 0)
         {
+            MultiplayerMenuController.instance.Multiplayer.Opponent.Plant();
+
             currentCollectedSeed--;
             UpdateSeedsIndicator();
 

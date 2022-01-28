@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
 
     private void SwitchGravity()
     {
+        if (MultiplayerMenuController.instance.Multiplayer.Opponent.Role != Multiplayer.Roles.Player1) return;
+        MultiplayerMenuController.instance.Multiplayer.Opponent.SwitchGravity();
+
         IsGravitySwitched = !IsGravitySwitched;
 
         player1.SwitchGravity();

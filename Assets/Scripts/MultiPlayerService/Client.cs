@@ -33,14 +33,31 @@ namespace Multiplayer
             Send(new StartMsg());
         }
 
-        public void Move(int x, int y)
+        public void Move(float x)
         {
-            Send(new MoveMsg() { X = x, Y = y });
+            Send(new MoveMsg() { X = x });
+        }
+        public void StopMove()
+        {
+            Send(new StopMoveMsg());
         }
 
-        public void Switch()
+        public void Jump()
         {
-            Send(new SwitchMsg());
+            Send(new JumpMsg());
+        }
+        public void Plant()
+        {
+            Send(new PlantMsg());
+        }
+        public void Fire()
+        {
+            Send(new FireMsg());
+        }
+
+        public void SwitchGravity()
+        {
+            Send(new SwitchGravityMsg());
         }
 
         private void Send<T>(T gameMsg) where T : GameMsg
