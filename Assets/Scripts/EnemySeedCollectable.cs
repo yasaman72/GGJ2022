@@ -14,7 +14,10 @@ public class EnemySeedCollectable : MonoBehaviour
             currentHit++;
             if (currentHit >= hitToCollect)
             {
-                other.GetComponent<Bullet>().owner.OnCollectedEnemySeed();
+                PlayableCharacter bulletOwner = other.GetComponent<Bullet>().owner;
+                bulletOwner.OnCollectedEnemySeed();
+                Destroy(gameObject);
+                SeedsManager.instance.SpawnSeed(bulletOwner.IsFlipped()); ;
             }
             Destroy(other);
         }

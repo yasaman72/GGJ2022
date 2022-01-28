@@ -62,6 +62,10 @@ public class PlayableCharacter : MonoBehaviour
         return col.IsTouching(Mathf.Sign(rigidBody.gravityScale) <= 0 ? GameManager.instance.upGround : GameManager.instance.downground);
     }
 
+    public bool IsFlipped()
+    {
+        return Mathf.Sign(rigidBody.gravityScale) <= 0 ? true : false;
+    }
 
     public void Jump(InputAction.CallbackContext context)
     {
