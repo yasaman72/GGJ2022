@@ -2,23 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Multiplayer;
+using System;
+using System.Net;
 
 public class MultiplayerMenuController : MonoBehaviour
 {
     [SerializeField] private TMP_InputField codeInputField;
     [SerializeField] private TextMeshProUGUI hostCode;
+    public event Action<GameMsg> OnMessageReceived;
+
+    private void Opponent_OnGameEventReceived(GameMsg obj)
+    {
+        Debug.Log($"{obj.GetType()} received...");
+
+
+        if (obj is MoveMsg move)
+        {
+
+        }
+        else if (obj is StartMsg)
+        {
+
+        }
+        else if (obj is SwitchMsg)
+        {
+
+        }
+    }
+
+    MultiplayerService Multiplayer = null;
 
     public void OnJoinBtnClicked()
     {
         Debug.Log("clicked on join btn");
-       // get the entered code: codeInputField.text
+        // get the entered code: codeInputField.text
+
+        Multiplayer = new MultiplayerService();
+        Multiplayer.OnGameEventReceived += Opponent_OnGameEventReceived;
+
+        Multiplayer.Join(IPAddress.Parse(codeInputField.text));
     }
 
     public void OnHostBtnClicked()
     {
         Debug.Log("clicked on host btn");
 
-        // set the host code: hostCode.text = "";
+        Multiplayer = new MultiplayerService();
+        Multiplayer.OnGameEventReceived += Opponent_OnGameEventReceived;
+
+        Multiplayer.Host();
     }
 
     // this one is called when finished editing the text for the host code
@@ -30,15 +63,19 @@ public class MultiplayerMenuController : MonoBehaviour
     public void OnShowMultiplayerPanel()
     {
         hostCode.text = "---.---.-.--";
-        codeInputField.text = string.Empty;
+        codeInputField.text = "127.0.0.1";
     }
 
     public void OnHideMultiplayerPanel()
     {
+
     }
 
     public void OnCopyClicked()
     {
         GUIUtility.systemCopyBuffer = hostCode.text;
+
+        //TODO
+        Multiplayer.Opponent.StartGame();
     }
 }
