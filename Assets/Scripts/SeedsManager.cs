@@ -130,4 +130,15 @@ public class SeedsManager : MonoBehaviour
         }
     }
 
+    public void OnEnemyDied(GameObject diedSeed)
+    {
+        if (bottomSeeds.Contains(diedSeed))
+        {
+            bottomSeeds.Remove(diedSeed);
+        }
+        else if (topSeeds.Contains(diedSeed))
+        {
+            topSeeds.Remove(diedSeed);
+        }
+    }
 }

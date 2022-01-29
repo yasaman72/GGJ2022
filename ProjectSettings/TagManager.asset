@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - SeedCollectable
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Borders
   - SeedCollectable
   - MiddleCollectable
-  - 
+  - Enemy
   - 
   - 
   - 

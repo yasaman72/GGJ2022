@@ -7,8 +7,9 @@ public class Character : MonoBehaviour
     public delegate void OnDied();
     public static OnDied onDied;
 
-    [SerializeField] private int hp;
-    private int currentHP
+    [SerializeField] protected int maxHp = 10;
+
+    protected int currentHP
     {
         get
         {
@@ -22,20 +23,26 @@ public class Character : MonoBehaviour
     }
     private int _currentHP;
 
-    public void OnGetHurt(int damageAmount)
+    public void GetHit(int damageAmount)
     {
         currentHP -= damageAmount;
         CheckIfDied();
     }
 
+    public void OnSpawn()
+    {
+        currentHP = maxHp;
+    }
+
     private void CheckIfDied()
     {
-        if(currentHP <= 0)
+        if (currentHP <= 0)
         {
-            if(onDied != null)
+            if (onDied != null)
             {
                 onDied.Invoke();
             }
+            Destroy(gameObject);
         }
     }
 
