@@ -136,7 +136,7 @@ GameObject:
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 9192574981782391388}
   - {fileID: 8522679522592693971}
   - {fileID: 5194739339538492535}
+  animator: {fileID: 556331047}
 --- !u!1 &3417149099465818847
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3417149099983459791}
   - component: {fileID: 3417149099983459789}
-  - component: {fileID: 3417149099983459788}
+  - component: {fileID: 556331047}
   m_Layer: 6
   m_Name: CharacterSprite
   m_TagString: Untagged
@@ -346,7 +347,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3417149099983459788
+--- !u!95 &556331047
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -354,9 +355,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3417149099983459790}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 413fcee9fe0e52b4bbd84251c3d0a4be, type: 2}
+  m_Controller: {fileID: 9100000, guid: cec8317fee911444cbc12a30ba2aea56, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

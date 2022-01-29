@@ -27,6 +27,7 @@ public class PlayableCharacter : Character
     [Space]
     [SerializeField] private int maxCollectableSeed = 3;
     [SerializeField] private GameObject[] seedIndicators;
+    [SerializeField] private Animator animator;
 
     private float jumpForce = 3;
     private float moveInput;
@@ -66,6 +67,11 @@ public class PlayableCharacter : Character
     public bool IsFlipped()
     {
         return Mathf.Sign(rigidBody.gravityScale) <= 0 ? true : false;
+    }
+
+    public void GetHit(int damageAmount)
+    {
+        base.GetHit(damageAmount);
     }
 
     #region Jump

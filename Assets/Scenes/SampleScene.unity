@@ -610,10 +610,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1756408364}
     m_Modifications:
     - target: {fileID: 3417149098792366802, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3417149098792366802, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
       propertyPath: m_Name
       value: Player_Bottom
       objectReference: {fileID: 0}
@@ -2596,8 +2592,8 @@ MonoBehaviour:
   gameOverPanel: {fileID: 542315534}
   gameoverText: {fileID: 1191215319}
   winnerImage: {fileID: 1375748839}
-  playerTopSprite: {fileID: 21300000, guid: 595e61652b826a24bb6ecc004f501abf, type: 3}
-  playerBottomSprite: {fileID: 21300000, guid: 658c59063922897448c948a7c2b45bc9, type: 3}
+  playerTopSprite: {fileID: 21300000, guid: 658c59063922897448c948a7c2b45bc9, type: 3}
+  playerBottomSprite: {fileID: 21300000, guid: 595e61652b826a24bb6ecc004f501abf, type: 3}
 --- !u!4 &590229649
 Transform:
   m_ObjectHideFlags: 0
@@ -8657,6 +8653,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 595e61652b826a24bb6ecc004f501abf, type: 3}
+    - target: {fileID: 3417149099983459789, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417149099983459789, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417149099983459789, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3417149099983459789, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
