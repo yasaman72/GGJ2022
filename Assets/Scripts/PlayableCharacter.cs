@@ -55,6 +55,7 @@ public class PlayableCharacter : Character
         UpdateSeedsIndicator();
 
         StartCoroutine(SetRotation());
+        OnSpawn();
     }
 
     bool IsGrounded()
@@ -70,6 +71,8 @@ public class PlayableCharacter : Character
     #region Jump
     public void Jump(InputAction.CallbackContext context)
     {
+        if (!GameManager.InGameplay) return;
+
         if (context.performed)
         {
             if (IsGrounded())
@@ -123,6 +126,8 @@ public class PlayableCharacter : Character
     #region Movement
     public void MoveRight(InputAction.CallbackContext context)
     {
+        if (!GameManager.InGameplay) return;
+
         if (context.performed)
         {
             moveRightLastValue = 1;
@@ -145,6 +150,8 @@ public class PlayableCharacter : Character
 
     public void MoveLeft(InputAction.CallbackContext context)
     {
+        if (!GameManager.InGameplay) return;
+
         if (context.performed)
         {
             moveLeftLastValue = 1;
@@ -228,6 +235,7 @@ public class PlayableCharacter : Character
     #region Fire
     public void Fire(InputAction.CallbackContext context)
     {
+        if (!GameManager.InGameplay) return;
         if (context.performed)
         {
             StartCoroutine(KeepFiringGun());
@@ -258,6 +266,8 @@ public class PlayableCharacter : Character
     #region Gravity
     public void SwitchGravity()
     {
+        if (!GameManager.InGameplay) return;
+
         canMove = false;
         rigidBody.velocity = Vector2.zero;
         rigidBody.gravityScale *= -1;
@@ -308,17 +318,21 @@ public class PlayableCharacter : Character
     #region Plant
     public void Plant(InputAction.CallbackContext context)
     {
-        if (!IsGrounded() || !GameManager.IsOnTheirLand) return;
-        if (currentCollectedSeed > 0)
+        if (context.performed)
         {
-            if (GameManager.IsPlayingOnline)
-                MultiplayerMenuController.instance.Multiplayer.Opponent.Plant();
+            if (!IsGrounded() || !GameManager.IsOnTheirLand) return;
+            if (currentCollectedSeed > 0)
+            {
+                if (GameManager.IsPlayingOnline)
+                    MultiplayerMenuController.instance.Multiplayer.Opponent.Plant();
 
-            currentCollectedSeed--;
-            UpdateSeedsIndicator();
+                currentCollectedSeed--;
+                UpdateSeedsIndicator();
 
-            SeedsManager.instance.SeedPlant(rigidBody.position, !IsFlipped());
+                SeedsManager.instance.SeedPlant(rigidBody.position, !IsFlipped());
+            }
         }
+
     }
     #endregion
 
@@ -336,7 +350,7 @@ public class PlayableCharacter : Character
         }
     }
 
-    protected new void OnDied()
+    protected override void OnDied()
     {
         GameManager.instance.OnAPlayerdied(this);
     }

@@ -30,7 +30,7 @@ public class EnemySeed : MonoBehaviour
     public void SpawnEnemy()
     {
         mySpawnedEnemy = Instantiate(enemy, transform.position, Quaternion.identity, null);
-        Rigidbody2D rb = mySpawnedEnemy.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = mySpawnedEnemy.GetComponentInChildren<Rigidbody2D>();
         mySpawnedEnemy.GetComponent<Enemy>().opponentPlayer = isOnTop ?
             GameManager.instance.bottomPlayer :
             GameManager.instance.topPlayer;
@@ -52,7 +52,6 @@ public class EnemySeed : MonoBehaviour
 
 
 
-        rb.AddForce(new Vector2(0, Mathf.Sign(rb.gravityScale) * 20), ForceMode2D.Impulse);
         gameObject.SetActive(false);
 
         alreadySpawnedEnemy = true;

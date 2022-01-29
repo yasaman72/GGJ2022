@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private MenuPanel inGame;
     [SerializeField] private MenuPanel gameOverPanel;
     [SerializeField] private TextMeshProUGUI gameoverText;
+    [SerializeField] private Image winnerImage;
+    [SerializeField] private Sprite playerTopSprite, playerBottomSprite;
+
 
     MenuPanel currentPanel;
 
@@ -28,14 +32,17 @@ public class MenuManager : MonoBehaviour
 
     private void OnGameOver(bool topPlayerWon)
     {
-        if (topPlayerWon)
+        Debug.Log("show game over");
+        if (!topPlayerWon)
         {
             gameoverText.text = "Player 2 Won!";
+            winnerImage.sprite = playerBottomSprite;
 
         }
         else
         {
             gameoverText.text = "Player 1 Won!";
+            winnerImage.sprite = playerTopSprite;
 
         }
         OpenAPanel(gameOverPanel);

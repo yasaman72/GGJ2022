@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour
 
     public void OnAPlayerdied(PlayableCharacter diedPlayer)
     {
-        StopAllCoroutines();
+        OnGravitySwitched = null;
+        InGameplay = false;
         if (GameOver != null)
         {
             GameOver.Invoke(diedPlayer.startFlipped);

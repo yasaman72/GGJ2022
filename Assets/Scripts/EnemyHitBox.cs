@@ -11,6 +11,8 @@ public class EnemyHitBox : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bullet"))
         {
+            if (other.GetComponent<Bullet>().owner != enemy.opponentPlayer) return;
+
             Destroy(other.gameObject);
             enemy.GetHit(1);
         }

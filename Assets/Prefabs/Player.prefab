@@ -177,9 +177,9 @@ MonoBehaviour:
   slowDownSpeed: 5
   rotateSpeed: 500
   maxAirTime: 2
-  jumpHeight: 15
-  gradualJumpForce: 5
-  maxJumpVelocity: 80
+  jumpHeight: 100
+  gradualJumpForce: 20
+  maxJumpVelocity: 200
   bulletSpawnPoint: {fileID: 3417149098320658425}
   bullet: {fileID: 3532087513154959823, guid: ea483bbbbde85d743bbdaaa0c19e27df, type: 3}
   automaticGun: 1
@@ -254,7 +254,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5

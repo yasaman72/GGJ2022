@@ -9,6 +9,11 @@ public class Enemy : Character
     [SerializeField] private Rigidbody2D rigidBody;
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private float detonateDistane = 2;
+    [SerializeField] private float spawnForce = 5;
+
+    private float lastDirectionToOpponent;
+    private Rigidbody2D opponentRigidBody;
+    private bool move;
 
     private void Start()
     {
@@ -17,33 +22,40 @@ public class Enemy : Character
 
     private void OnGameOver(bool topPlayer)
     {
-        StopAllCoroutines();
+        move = false;
     }
 
     public void OnRegenerate()
     {
+        rigidBody.AddForce(new Vector2(0, Mathf.Sign(rigidBody.gravityScale) * 5), ForceMode2D.Impulse);
+
         Vector2 directionToOpponent = (opponentPlayer.transform.position - transform.position).normalized;
         transform.localScale = transform.localScale * new Vector2(1, Mathf.Sign(directionToOpponent.x));
+        opponentRigidBody = opponentPlayer.GetComponentInChildren<Rigidbody2D>();
         StartCoroutine(Move());
     }
 
     private IEnumerator Move()
     {
-        while (true)
+        move = true;
+        while (move)
         {
-            yield return new WaitForEndOfFrame();
-            float step = moveSpeed * Time.fixedDeltaTime;
-            float targetPos =  (Vector2.MoveTowards(transform.position, opponentPlayer.transform.position, step)).x;
-            rigidBody.MovePosition(new Vector2(targetPos, transform.position.y));
-            //Vector2 directionToOpponent = (opponentPlayer.transform.position - transform.position).normalized;
-            //rigidBody.velocity = new Vector2((Mathf.Sign(directionToOpponent.x) * moveSpeed * Time.fixedDeltaTime), rigidBody.velocity.y);
+            float directionToOpponent = opponentRigidBody.transform.position.x - rigidBody.transform.position.x;
+            Debug.DrawRay(rigidBody.transform.position, opponentRigidBody.transform.position);
+            if(Mathf.Sign(lastDirectionToOpponent) != Mathf.Sign(directionToOpponent))
+            {
+                rigidBody.velocity = Vector2.zero;
+            }
+                lastDirectionToOpponent = directionToOpponent;
+            rigidBody.velocity = new Vector2((Mathf.Sign(directionToOpponent) * moveSpeed * Time.fixedDeltaTime), rigidBody.velocity.y);
 
-            if (Vector2.Distance(opponentPlayer.transform.position, transform.position) <= detonateDistane)
+            if (Vector2.Distance(opponentRigidBody.transform.position, rigidBody.transform.position) <= detonateDistane)
             {
                 Debug.Log("BOOM");
                 opponentPlayer.gameObject.GetComponent<PlayableCharacter>().GetHit(damage);
                 GetHit(maxHp * 10);
             }
+            yield return new WaitForEndOfFrame();
         }
     }
 }

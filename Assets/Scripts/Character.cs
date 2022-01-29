@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    protected void OnDied()
+    protected virtual void OnDied()
     {
 
     }

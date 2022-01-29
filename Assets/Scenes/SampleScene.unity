@@ -610,6 +610,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1756408364}
     m_Modifications:
     - target: {fileID: 3417149098792366802, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 3417149098792366802, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
       propertyPath: m_Name
       value: Player_Bottom
       objectReference: {fileID: 0}
@@ -2231,6 +2235,7 @@ RectTransform:
   m_Children:
   - {fileID: 1191215318}
   - {fileID: 977877741}
+  - {fileID: 1375748838}
   m_Father: {fileID: 224332362}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2589,7 +2594,10 @@ MonoBehaviour:
   controlsMenu: {fileID: 1002511291}
   inGame: {fileID: 1857500733}
   gameOverPanel: {fileID: 542315534}
-  gameoverText: {fileID: 1765005301}
+  gameoverText: {fileID: 1191215319}
+  winnerImage: {fileID: 1375748839}
+  playerTopSprite: {fileID: 21300000, guid: 595e61652b826a24bb6ecc004f501abf, type: 3}
+  playerBottomSprite: {fileID: 21300000, guid: 658c59063922897448c948a7c2b45bc9, type: 3}
 --- !u!4 &590229649
 Transform:
   m_ObjectHideFlags: 0
@@ -3019,7 +3027,7 @@ GameObject:
   - component: {fileID: 752214819}
   - component: {fileID: 752214818}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3064,7 +3072,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deadly Dual
+  m_text: Kale-Pa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4207,7 +4215,7 @@ GameObject:
   - component: {fileID: 1191215320}
   - component: {fileID: 1191215319}
   m_Layer: 5
-  m_Name: Host Code Text
+  m_Name: Game Over Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5114,6 +5122,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1375748837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375748838}
+  - component: {fileID: 1375748840}
+  - component: {fileID: 1375748839}
+  m_Layer: 5
+  m_Name: WInner Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1375748838
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375748837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 542315533}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 119.08}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1375748839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375748837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 658c59063922897448c948a7c2b45bc9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1375748840
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375748837}
+  m_CullTransparentMesh: 1
 --- !u!1 &1380368960
 GameObject:
   m_ObjectHideFlags: 0
@@ -7396,7 +7479,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8432,6 +8515,10 @@ PrefabInstance:
       propertyPath: startFlipped
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3417149098792366802, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 3417149098792366802, guid: f47e399d5313ea84c95bd3d3627a7b8d, type: 3}
       propertyPath: m_Name
       value: Player_Top
