@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +7,15 @@ public class SeedsManager : MonoBehaviour
     [SerializeField] private GameObject seed;
     [SerializeField] private Collider2D topSpawnSpace, bottomSpawnSpace;
     [SerializeField] private Collider2D topPlantSpace, bottomPlantSpace;
-    [SerializeField] private float spawnheight = 1
+    [SerializeField]
+    private float spawnheight = 1
         ;
     [SerializeField] private GameObject plantedSeed;
     [SerializeField] private float plantedSeedDepth = 1;
 
     private float spawnheightTop, spawnheightBottom;
-    private List<EnemySeed> topSeeds = new List<EnemySeed>();
-    private List<EnemySeed> bottomSeeds = new List<EnemySeed>();
+    private List<GameObject> topSeeds = new List<GameObject>();
+    private List<GameObject> bottomSeeds = new List<GameObject>();
 
     private void Awake()
     {
@@ -25,6 +25,16 @@ public class SeedsManager : MonoBehaviour
         spawnheightTop = edgeVector.y - spawnheight;
         spawnheightBottom = edgeVectorBottom.y + spawnheight;
 
+        DestroyAllSeedSources();
+    }
+
+    private void Start()
+    {
+        GameManager.OnGravitySwitched += OnGravitySwitched;
+    }
+
+    private void DestroyAllSeedSources()
+    {
         GameObject[] allSeedsInScene = GameObject.FindGameObjectsWithTag("SeedCollectable");
         foreach (var seed in allSeedsInScene)
         {
@@ -56,11 +66,11 @@ public class SeedsManager : MonoBehaviour
             return;
         }
         EnemySeedCollectable seedObj = Instantiate(seed, spawnPos,
-            OnBottom? Quaternion.Euler(0,0,180) : Quaternion.identity, 
+            OnBottom ? Quaternion.Euler(0, 0, 180) : Quaternion.identity,
             null)
             .GetComponent<Collider2D>().GetComponent<EnemySeedCollectable>();
         seedObj.isOnBottom = OnBottom;
-   
+
     }
 
     public void SeedPlant(Vector2 playerPosition, bool OnBottom)
@@ -74,9 +84,50 @@ public class SeedsManager : MonoBehaviour
         {
             spawnPos = new Vector2(playerPosition.x, topPlantSpace.bounds.center.y);
         }
-        Instantiate(plantedSeed, 
+        GameObject newPlantedSeeObj = Instantiate(plantedSeed,
             spawnPos,
-            OnBottom ?  Quaternion.identity: Quaternion.Euler(0, 0, 180),
+            OnBottom ? Quaternion.identity : Quaternion.Euler(0, 0, 180),
             null);
+
+        if (OnBottom)
+        {
+            bottomSeeds.Add(newPlantedSeeObj);
+        }
+        else
+        {
+            topSeeds.Add(newPlantedSeeObj);
+        }
     }
+
+    public void OnGravitySwitched(bool isOnTheirLand)
+    {
+        if (isOnTheirLand)
+        {
+            SpawnSeed(true);
+            SpawnSeed(false);
+            foreach (var seed in topSeeds)
+            {
+                seed.GetComponent<EnemySeed>().ReturnEnemyToSeed();
+            }
+
+            foreach (var seed in bottomSeeds)
+            {
+                seed.GetComponent<EnemySeed>().ReturnEnemyToSeed();
+            }
+        }
+        else
+        {
+            DestroyAllSeedSources();
+            foreach (var seed in topSeeds)
+            {
+                seed.GetComponent<EnemySeed>().SpawnEnemy(true);
+            }
+
+            foreach (var seed in bottomSeeds)
+            {
+                seed.GetComponent<EnemySeed>().SpawnEnemy(false);
+            }
+        }
+    }
+
 }

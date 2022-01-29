@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayableCharacter : MonoBehaviour
+public class PlayableCharacter : Character
 {
     [SerializeField] private bool startFlipped;
     [Space]
@@ -75,7 +75,8 @@ public class PlayableCharacter : MonoBehaviour
             if (IsGrounded())
             {
                 jumpForce = CalculateJumpForce(Physics2D.gravity.magnitude, jumpHeight);
-                MultiplayerMenuController.instance.Multiplayer.Opponent.Jump();
+                if (GameManager.IsPlayingOnline)
+                    MultiplayerMenuController.instance.Multiplayer.Opponent.Jump();
                 rigidBody.AddForce(new Vector2(0, Mathf.Sign(rigidBody.gravityScale) * jumpForce), ForceMode2D.Impulse);
                 StartCoroutine(JumpingProcess());
             }
@@ -204,7 +205,8 @@ public class PlayableCharacter : MonoBehaviour
         while (moving)
         {
             rigidBody.velocity = new Vector2((moveInput * moveSpeed * Time.fixedDeltaTime), rigidBody.velocity.y);
-            MultiplayerMenuController.instance.Multiplayer.Opponent.Move(moveInput);
+            if (GameManager.IsPlayingOnline)
+                MultiplayerMenuController.instance.Multiplayer.Opponent.Move(moveInput);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -214,7 +216,8 @@ public class PlayableCharacter : MonoBehaviour
         while (rigidBody.velocity != Vector2.zero && canMove)
         {
             rigidBody.velocity = Vector3.Lerp(rigidBody.velocity, Vector2.zero, slowDownSpeed * Time.fixedDeltaTime);
-            MultiplayerMenuController.instance.Multiplayer.Opponent.StopMove();
+            if (GameManager.IsPlayingOnline)
+                MultiplayerMenuController.instance.Multiplayer.Opponent.StopMove();
             yield return new WaitForFixedUpdate();
         }
 
@@ -241,7 +244,8 @@ public class PlayableCharacter : MonoBehaviour
 
         while (isFiring)
         {
-            MultiplayerMenuController.instance.Multiplayer.Opponent.Fire();
+            if (GameManager.IsPlayingOnline)
+                MultiplayerMenuController.instance.Multiplayer.Opponent.Fire();
 
             GameObject newBullet = Instantiate(bullet, bulletSpawnPoint.transform.position, Quaternion.identity, null);
             newBullet.GetComponent<Bullet>().Fire(lookDirection, this);
@@ -304,10 +308,11 @@ public class PlayableCharacter : MonoBehaviour
     #region Plant
     public void Plant(InputAction.CallbackContext context)
     {
-        if (!IsGrounded()) return;
+        if (!IsGrounded() || !GameManager.IsOnTheirLand) return;
         if (currentCollectedSeed > 0)
         {
-            MultiplayerMenuController.instance.Multiplayer.Opponent.Plant();
+            if (GameManager.IsPlayingOnline)
+                MultiplayerMenuController.instance.Multiplayer.Opponent.Plant();
 
             currentCollectedSeed--;
             UpdateSeedsIndicator();

@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e770a3dc82044f64f9badd14de9a78ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
   startFlipped: 0
   rigidBody: {fileID: 3417149099465818845}
   col: {fileID: 3417149099465818842}
@@ -87,7 +88,7 @@ MonoBehaviour:
   maxJumpVelocity: 30
   bulletSpawnPoint: {fileID: 3417149098320658425}
   bullet: {fileID: 3532087513154959823, guid: ea483bbbbde85d743bbdaaa0c19e27df, type: 3}
-  automaticGun: 0
+  automaticGun: 1
   fireInterval: 0.3
   maxCollectableSeed: 3
   seedIndicators:

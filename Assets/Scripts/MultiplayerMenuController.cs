@@ -27,10 +27,10 @@ public class MultiplayerMenuController : MonoBehaviour
         if (obj is ReadyMsg)
         {
             // TODO: ready to start...
-            //if (Multiplayer.Opponent.Role != Multiplayer.Roles.Player2)
-            //{
-            //    GameManager.instance.StartGameplay();
-            //}
+            if (Multiplayer.Opponent.Role != Roles.Player2)
+            {
+                GameManager.instance.StartGameplay(true);
+            }
         }
         else if (obj is MoveMsg move)
         {

@@ -4,15 +4,64 @@ using UnityEngine;
 
 public class EnemySeed : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject enemy;
+    [SerializeField] private SpriteRenderer mySpriteRndr;
+    private GameObject mySpawnedEnemy;
+    private int myEnemyCurrentHP;
+
+    public void SpawnEnemy(bool isOnTop)
     {
-        
+        mySpawnedEnemy = Instantiate(enemy, transform.position, Quaternion.identity, null);
+        Rigidbody2D rb = mySpawnedEnemy.GetComponent<Rigidbody2D>();
+        if (myEnemyCurrentHP != 0)
+        {
+            mySpawnedEnemy.GetComponent<Enemy>().SetCurrentHP(myEnemyCurrentHP);
+        }
+        if (isOnTop)
+        {
+            rb.gravityScale = -rb.gravityScale;
+        }
+
+        rb.AddForce(new Vector2(0, Mathf.Sign(rb.gravityScale) * 20), ForceMode2D.Impulse);
+        StartCoroutine(SetRotation(rb));
+        mySpriteRndr.color = Color.clear;
+
+    }
+    private IEnumerator SetRotation(Rigidbody2D rb)
+    {
+        bool rotate = true;
+        while (rotate)
+        {
+            yield return new WaitForFixedUpdate();
+
+            if (rb.gravityScale < 0)
+            {
+                rb.SetRotation(rb.rotation + (500 * Time.fixedDeltaTime));
+                if (rb.rotation > 180)
+                {
+                    rb.rotation = 180;
+                    rotate = false;
+                }
+            }
+            else
+            {
+                rb.SetRotation(rb.rotation - (500 * Time.fixedDeltaTime));
+                if (rb.rotation < 0)
+                {
+                    rb.rotation = 0;
+                    rotate = false;
+                }
+            }
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ReturnEnemyToSeed()
     {
-        
+        if (mySpawnedEnemy == null) return;
+        myEnemyCurrentHP = mySpawnedEnemy.GetComponent<Enemy>().GetHP();
+        Destroy(mySpawnedEnemy.gameObject);
+        mySpriteRndr.color = Color.white;
+
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public delegate void gravitySwitch();
+    public delegate void gravitySwitch(bool isOnOwnLand);
     public static gravitySwitch OnGravitySwitched;
     public Collider2D upGround, downground;
     [SerializeField] private PlayableCharacter player1, player2;
@@ -15,15 +15,19 @@ public class GameManager : MonoBehaviour
 
     public static bool IsGravitySwitched;
     public static bool InGameplay;
+    public static bool IsOnTheirLand;
+    public static bool IsPlayingOnline;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void StartGameplay()
+    public void StartGameplay(bool Online = false)
     {
+        IsPlayingOnline = Online;
         InGameplay = true;
+        IsOnTheirLand = true;
         StartCoroutine(SwitchGravityTimer());
         SeedsManager.instance.SpawnSeedSourceOnStart();
     }
@@ -44,9 +48,13 @@ public class GameManager : MonoBehaviour
 
     private void SwitchGravity()
     {
-        if (MultiplayerMenuController.instance.Multiplayer.Opponent.Role != Multiplayer.Roles.Player1) return;
-        MultiplayerMenuController.instance.Multiplayer.Opponent.SwitchGravity();
+        if (GameManager.IsPlayingOnline)
+        {
+            if (MultiplayerMenuController.instance.Multiplayer.Opponent.Role != Multiplayer.Roles.Player1) return;
+            MultiplayerMenuController.instance.Multiplayer.Opponent.SwitchGravity();
+        }
 
+        IsOnTheirLand = !IsOnTheirLand;
         IsGravitySwitched = !IsGravitySwitched;
 
         player1.SwitchGravity();
@@ -54,7 +62,7 @@ public class GameManager : MonoBehaviour
 
         if (OnGravitySwitched != null)
         {
-            OnGravitySwitched.Invoke();
+            OnGravitySwitched.Invoke(IsOnTheirLand);
         }
     }
 
