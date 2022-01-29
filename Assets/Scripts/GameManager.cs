@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public delegate void gravitySwitch(bool isOnOwnLand);
     public static gravitySwitch OnGravitySwitched;
+    public delegate void gameOver(bool topPlayerWon);
+    public static gameOver GameOver;
     public Collider2D upGround, downground;
     [SerializeField] private PlayableCharacter player1, player2;
     [SerializeField] private float minSwitchInterval = 5, maxSitchInterval = 10;
+
+    public PlayableCharacter topPlayer, bottomPlayer;
 
     public static bool IsGravitySwitched;
     public static bool InGameplay;
@@ -69,5 +73,14 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void OnAPlayerdied(PlayableCharacter diedPlayer)
+    {
+        StopAllCoroutines();
+        if (GameOver != null)
+        {
+            GameOver.Invoke(diedPlayer.startFlipped);
+        }
     }
 }

@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private MenuPanel mainMenu; 
-    [SerializeField] private MenuPanel multiplayerMenu; 
+    [SerializeField] private MenuPanel mainMenu;
+    [SerializeField] private MenuPanel multiplayerMenu;
     [SerializeField] private MenuPanel controlsMenu;
     [SerializeField] private MenuPanel inGame;
+    [SerializeField] private MenuPanel gameOverPanel;
+    [SerializeField] private TextMeshProUGUI gameoverText;
 
     MenuPanel currentPanel;
 
@@ -18,7 +21,26 @@ public class MenuManager : MonoBehaviour
         multiplayerMenu.Hide();
         controlsMenu.Hide();
         inGame.Hide();
+        gameOverPanel.Hide();
+
+        GameManager.GameOver += OnGameOver;
     }
+
+    private void OnGameOver(bool topPlayerWon)
+    {
+        if (topPlayerWon)
+        {
+            gameoverText.text = "Player 2 Won!";
+
+        }
+        else
+        {
+            gameoverText.text = "Player 1 Won!";
+
+        }
+        OpenAPanel(gameOverPanel);
+    }
+
     public void StartGame()
     {
         GameManager.instance.StartGameplay();

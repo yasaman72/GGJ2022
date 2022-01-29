@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayableCharacter : Character
 {
-    [SerializeField] private bool startFlipped;
+    [SerializeField] public bool startFlipped;
     [Space]
     [SerializeField] private Rigidbody2D rigidBody;
     [SerializeField] private Collider2D col;
@@ -334,5 +334,10 @@ public class PlayableCharacter : Character
         {
             seedIndicators[i].gameObject.SetActive(i < currentCollectedSeed);
         }
+    }
+
+    protected new void OnDied()
+    {
+        GameManager.instance.OnAPlayerdied(this);
     }
 }

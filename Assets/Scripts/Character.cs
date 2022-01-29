@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public delegate void OnDied();
-    public static OnDied onDied;
+    [SerializeField] private Transform hpBar;
 
     [SerializeField] protected int maxHp = 10;
 
@@ -38,12 +37,14 @@ public class Character : MonoBehaviour
     {
         if (currentHP <= 0)
         {
-            if (onDied != null)
-            {
-                onDied.Invoke();
-            }
+            OnDied();
             Destroy(gameObject);
         }
+    }
+
+    protected void OnDied()
+    {
+
     }
 
     public int GetHP()
@@ -56,7 +57,8 @@ public class Character : MonoBehaviour
         currentHP = newHP;
     }
 
-    public virtual void UpdateHPUI()
+    protected void UpdateHPUI()
     {
+        hpBar.localScale = new Vector2((currentHP / (float)maxHp) * hpBar.localScale.x, hpBar.localScale.y);
     }
 }

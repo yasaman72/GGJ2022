@@ -14,8 +14,6 @@ public class SeedsManager : MonoBehaviour
     [SerializeField] private float plantedSeedDepth = 1;
 
     private float spawnheightTop, spawnheightBottom;
-    private List<GameObject> topSeeds = new List<GameObject>();
-    private List<GameObject> bottomSeeds = new List<GameObject>();
 
     private void Awake()
     {
@@ -26,12 +24,23 @@ public class SeedsManager : MonoBehaviour
         spawnheightBottom = edgeVectorBottom.y + spawnheight;
 
         DestroyAllSeedSources();
+
+        GameManager.OnGravitySwitched += GravitySwitched;
     }
 
-    private void Start()
+    public void GravitySwitched(bool isInTheirLand)
     {
-        GameManager.OnGravitySwitched += OnGravitySwitched;
+        if (isInTheirLand)
+        {
+            SpawnSeed(true);
+            SpawnSeed(false);
+        }
+        else
+        {
+            DestroyAllSeedSources();
+        }
     }
+
 
     private void DestroyAllSeedSources()
     {
@@ -88,57 +97,8 @@ public class SeedsManager : MonoBehaviour
             spawnPos,
             OnBottom ? Quaternion.identity : Quaternion.Euler(0, 0, 180),
             null);
-
-        if (OnBottom)
-        {
-            bottomSeeds.Add(newPlantedSeeObj);
-        }
-        else
-        {
-            topSeeds.Add(newPlantedSeeObj);
-        }
+        newPlantedSeeObj.GetComponent<EnemySeed>().isOnTop = !OnBottom;
     }
 
-    public void OnGravitySwitched(bool isOnTheirLand)
-    {
-        if (isOnTheirLand)
-        {
-            SpawnSeed(true);
-            SpawnSeed(false);
-            foreach (var seed in topSeeds)
-            {
-                seed.GetComponent<EnemySeed>().ReturnEnemyToSeed();
-            }
 
-            foreach (var seed in bottomSeeds)
-            {
-                seed.GetComponent<EnemySeed>().ReturnEnemyToSeed();
-            }
-        }
-        else
-        {
-            DestroyAllSeedSources();
-            foreach (var seed in topSeeds)
-            {
-                seed.GetComponent<EnemySeed>().SpawnEnemy(true);
-            }
-
-            foreach (var seed in bottomSeeds)
-            {
-                seed.GetComponent<EnemySeed>().SpawnEnemy(false);
-            }
-        }
-    }
-
-    public void OnEnemyDied(GameObject diedSeed)
-    {
-        if (bottomSeeds.Contains(diedSeed))
-        {
-            bottomSeeds.Remove(diedSeed);
-        }
-        else if (topSeeds.Contains(diedSeed))
-        {
-            topSeeds.Remove(diedSeed);
-        }
-    }
 }

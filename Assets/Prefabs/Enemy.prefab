@@ -100,7 +100,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00000022117149, y: 0.4213963}
+  m_Offset: {x: 0.00000022117149, y: 0.42}
   serializedVersion: 2
   m_Radius: 1.5086036
 --- !u!50 &5446684469964483895
@@ -114,8 +114,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 2.0771224
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
@@ -136,8 +136,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df022a50090c5b43ab25f8c07f7dc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
   hpBar: {fileID: 763231808664333195}
+  maxHp: 5
+  opponentPlayer: {fileID: 0}
+  damage: 2
+  rigidBody: {fileID: 5446684469964483895}
+  moveSpeed: 20
+  detonateDistane: 2
 --- !u!1 &3840221040190945396
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,8 +251,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8420080813096791507}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.48, y: -0, z: 0}
+  m_LocalScale: {x: 0.9645, y: 0.798, z: 1}
   m_Children: []
   m_Father: {fileID: 5024195883431376039}
   m_RootOrder: 0
