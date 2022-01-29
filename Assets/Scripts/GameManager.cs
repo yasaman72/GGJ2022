@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static gravitySwitch OnGravitySwitched;
     public delegate void gameOver(bool topPlayerWon);
     public static gameOver GameOver;
+    public delegate void StarGame();
+    public static StarGame startGame;
     public Collider2D upGround, downground;
     [SerializeField] private PlayableCharacter player1, player2;
     [SerializeField] private float minSwitchInterval = 5, maxSitchInterval = 10;
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour
         IsOnTheirLand = true;
         StartCoroutine(SwitchGravityTimer());
         SeedsManager.instance.SpawnSeedSourceOnStart();
+        if (startGame != null)
+            startGame.Invoke();
     }
 
     private IEnumerator SwitchGravityTimer()

@@ -28,6 +28,11 @@ public class Character : MonoBehaviour
         CheckIfDied();
     }
 
+    public void Heal(int healAmount)
+    {
+        currentHP = Mathf.Min(currentHP + healAmount, maxHp);
+    }
+
     public void OnSpawn()
     {
         currentHP = maxHp;
